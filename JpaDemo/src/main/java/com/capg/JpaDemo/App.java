@@ -1,9 +1,12 @@
 package com.capg.JpaDemo;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import com.capg.bean.Student;
 
@@ -17,12 +20,12 @@ public class App
     
     
     {
-    	Student a= new Student();
-    	/*a.setSid(11);
+    	/*Student a= new Student();
+    	a.setSid(11);
     	a.setSname("john");
     	a.setSbranch("ece");
-    	*/
     	
+    	*/
     	
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("student");
     	EntityManager em =emf.createEntityManager();
@@ -30,7 +33,7 @@ public class App
     
     	
     	EntityTransaction et=em.getTransaction();
-    	
+    	/*
     
     	
 
@@ -39,9 +42,17 @@ public class App
 //		em.detach(t1);
 		//em.persist(a);
 		a1.setSname("abdvillers");
+		a1.setSbranch("ece");
 		et.commit();
-		System.out.println(a1);
+		System.out.println(a1);*/
 		//System.out.println(a);
+    	et.begin();
+    	
+    	
+    	Query q=em.createQuery("from Student");
+    	List<Student> list=q.getResultList();
+    	list.forEach(t->System.out.println(t));
+    	et.commit();
     	
     	
     	
